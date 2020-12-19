@@ -1,0 +1,40 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: helvetica, arial, sans-serif;
+}
+
+#editor{
+  display: grid;
+  grid-template-columns: 90% 10%;
+  
+  height: 500px;
+  width: 50%;
+  min-width:500px;
+  overflow-y: scroll;
+  border: 1px solid grey;
+  resize: both;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  
+}
+
+#textContent{
+  background-color: #ffffff;  
+  padding: 1em;
+  border: none;
+  outline: 0px solid transparent;
+}
+
+#syllabCounter{
+  background-color: #ffffff;
+  padding: 1em;
+  border: none;
+  outline: 0px solid transparent;
+  text-align: center;
+}
+
+#textContent > div:hover {
+  background-color: #F5F5F5;
+}
