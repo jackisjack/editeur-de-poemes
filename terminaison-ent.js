@@ -35,7 +35,11 @@ let homographeENT = [
 let exception1_ENT = [
 'absent',
 'accent',
+'accident',
+'agent',
 'adolescent',
+'apparent',
+'argent',
 'cent',
 'client',
 'coefficient',

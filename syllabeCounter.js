@@ -133,6 +133,7 @@ class decomposeurSyllabe{
           val = val.replace(/([aàâeéèêiîoôöuûùy])y([aàâeéèêiîoôöuûùy])/g, '$1ihi$2'); // gestion du y
           val = val.replaceAll('uei','e'); // cerceuil 
           val = val.replaceAll('ueu','eheu'); // sinueux (mais pas queue car keu) 
+		  val = val.replace(/uen(?!t)/,'uhen'); // influence
     			val = val.replaceAll('ue[^$]','uhe'); // jouer (mais pas bleue)
           //val = val.replaceAll('ua','uha'); // joua (trop d'ambiguïté)
           val = val.replaceAll('oé','ohé');  // poésie
@@ -151,7 +152,8 @@ class decomposeurSyllabe{
             }
           }
           
-          let a = val.match(/[^ aàâeéèêiîoôöuûùy]*?[aàâeéèêiîoôöuûùy]+([^aàâeéèêiîoôöuûùy]*)?/g);
+          //let a = val.match(/[^ aàâeéèêiîoôöuûùy]*?[aàâeéèêiîoôöuûùy]+([^aàâeéèêiîoôöuûùy]*)?/g);
+		  let a = val.match(/[^ aàâeéèêiîoôöuûùy]{0,2}?[aàâeéèêiîoôöuûùy]+([^aàâeéèêiîoôöuûùy]{0,2})?/g);
           taille += (a==null ? 0 : a.length)
           
   				return {mot:val, nombre:a==null ? 0 : a.length, decomposition: a==null ? '' : a.join('_')}
