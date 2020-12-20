@@ -80,6 +80,7 @@ let exception1_ENT = [
 'Lorient',
 'maintient',
 'mécontent',
+'moment',
 'occident',
 'omnipotent',
 'omniprésent',

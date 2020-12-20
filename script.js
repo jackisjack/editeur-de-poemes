@@ -85,6 +85,26 @@ function resfreshSyllabCounter(arrayOfChange){
 let d = new decomposeurSyllabe();
 textContentChange(textContent.innerText);
 
+
+// TEST GLOBAL
+
+	let log = [];
+
+	//for(let i = 0; i <  dataTest. length; i++){  
+	for(let i = 0; i <  0; i++){  
+	
+		let v = d.generate(dataTest[i]);
+		
+		let q = v.reduce((a, b) => a + ' ' + b.decomposition, '');
+		let t = v.reduce((a, b) => a + b.nombre, 0);
+				
+		log.push([dataTest[i], t, q].join(';'));
+	}
+
+	console.log(log.join('\n'));
+
+// FIN TEST GLOBAL
+
 function syllabCounter(text){
   let taille = 0;
   if(text!==undefined && text!==null){

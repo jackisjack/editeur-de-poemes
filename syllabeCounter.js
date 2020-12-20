@@ -63,7 +63,10 @@ class decomposeurSyllabe{
         
  		let taille = 0;
     let t = phrase.split(' ').map((val, index, arr) => {
-                
+           
+		   // remplacement de la pause poétique temporaire par le caractère définitif
+		   val = val.replaceAll('_','‧');
+		   
           // gestion du 'ent'
           // test :
           /*
@@ -83,10 +86,10 @@ class decomposeurSyllabe{
               // si ce n'est pas un homographe (sinon c'est foutu on traite pas)
               if(!homographeENT.includes(val)){
                 // si ça se termine par une fin qui assure que ça c'est le son 'AN'
-                if(/[aîiûuéeè]mm?ent$/.test(val)){
+                if(/[aîiûuéeè](\u{2027})?mm?ent$/u.test(val)){
                   // mais que ce n'est pas une exception
                   if(!exception2_ENT.includes(val)){
-                    val = val.replace(/([aîiûuéeè]mm?)ent$/g,'$1ant');
+                    val = val.replace(/([aîiûuéeè](\u{2027})?mm?)ent$/ug,'$1ant');
                   }
                 } else {
                   if (exception1_ENT.includes(val)){
@@ -108,7 +111,10 @@ class decomposeurSyllabe{
                 val = suffixe[0] + val;
               }
           }
-      
+		  
+          // élision des 'e'
+          val = val.replace(/([aàâeéèêiîoôöuûùy][nm]?(ch|gn|ph|sc|([^aàâeéèêiîoôöuûùy])\3*))e([^aàâeéèêiîoôöuûùyx\u{2027}][aàâeéèêiîoôöuûùy])/u,'$1$4')
+		  
      			// gestion des hiatus 
           // pas de gestion cas type 'sexuel' car demi-voyelle
            // pas de gestion des 'io' (biologie) ou 'ieu' (vieux/insoucieux)
