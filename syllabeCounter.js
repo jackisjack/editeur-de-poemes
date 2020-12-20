@@ -5,7 +5,8 @@ class decomposeurSyllabe{
   generate(phrase){
 		
     let option_e_muet_poetique = false;
-    
+    let option_e_fort_futur = true;
+	
     // trim
     phrase = phrase.trim();
     
@@ -27,7 +28,7 @@ class decomposeurSyllabe{
     phrase = phrase.replaceAll(')','.');
     
     // ajout d'un point final s'il n'existe pas
-    if (phrase.slice(-1)!=='.')
+    if (phrase.slice(-1)!=='.' && phrase.slice(-1)!==',')
     {
     	phrase = phrase + '.';
     }
@@ -49,19 +50,23 @@ class decomposeurSyllabe{
 
     if(option_e_muet_poetique==false){
       phrase = phrase.replace(/e(s)?[\.,]/g,'.'); // la virgule coupe la liaison et le 'e' muet
-      phrase = phrase.replace(/e(s)? \.,/g,'.');            
+      phrase = phrase.replace(/e(s)? [\.,]/g,'.');            
     } else {
-      phrase = phrase.replace(/e(s)?\./g,'.');
-      phrase = phrase.replace(/e(s)? \./g,'.');
+		 // suppression de la ponctuation
+		phrase = phrase.replace(/[\.,]/g,'').trim();	
+		// On réapplique les règles du e muet
+		phrase = phrase.replace(/([^aàâeéèêiîoôöuûùy])e([ ]h?[aàâeéèêiîoôöuûùy])/g,'$1$2');
+		// On supprime les éventuels e finaux
+		phrase = phrase.replace(/es?$/g,'.');
     }
-    
+	
     // suppression de la ponctuation
     phrase = phrase.replace(/[\.,]/g,'');
     
     // suppression du premier espace artificiel
     phrase = phrase.trim();
         
- 		let taille = 0;
+ 	let taille = 0;
     let t = phrase.split(' ').map((val, index, arr) => {
            
 		   // remplacement de la pause poétique temporaire par le caractère définitif
@@ -112,9 +117,10 @@ class decomposeurSyllabe{
               }
           }
 		  
-          // élision des 'e'
-          val = val.replace(/([aàâeéèêiîoôöuûùy][nm]?(ch|gn|ph|sc|([^aàâeéèêiîoôöuûùy])\3*))e([^aàâeéèêiîoôöuûùyx\u{2027}][aàâeéèêiîoôöuûùy])/u,'$1$4')
-		  
+          // élision des 'e' (exception des e du futur/conditionel... en option paramétrable)  // longuement - zipperait
+		  if (!(/(era$|eras$|erais$|erai$|erait$|erions$|erons$|eriez$|erez$|eraient$|eront$)/.test(val) == true && option_e_fort_futur == true)) {
+          val = val.replace(/([aàâeéèêiîoôöuûùy][nm]?(ch|gn|ph|sc|([^aàâeéèêiîoôöuûùy])\3*))e([^aàâeéèêiîoôöuûùyx\u{2027}][aàâeéèêiîoôöuûùy])/gu,'$1$4') // attention gestion de 'e' derrière 'x' qui ne s'élide jamais (sexe!)
+		  }
      			// gestion des hiatus 
           // pas de gestion cas type 'sexuel' car demi-voyelle
            // pas de gestion des 'io' (biologie) ou 'ieu' (vieux/insoucieux)
@@ -132,7 +138,7 @@ class decomposeurSyllabe{
           val = val.replaceAll('oé','ohé');  // poésie
           val = val.replaceAll('oè','ohè');  // poète
           if(val!=='oui'){
-          val = val.replace(/oui(?!ll)/g,'ouhi');  // jouir (oui) mais pas gazouille ou trouille
+          val = val.replace(/oui(?!(ll|n))/g,'ouhi');  // jouir (oui) mais pas gazouille ou trouille
           }
           val = val.replaceAll('oeu','eu'); // coeur
           val = val.replaceAll('oa','oha'); // oasis (tant pis pour les mots anglais : boat, toast...)
@@ -145,7 +151,6 @@ class decomposeurSyllabe{
             }
           }
           
-      
           let a = val.match(/[^ aàâeéèêiîoôöuûùy]*?[aàâeéèêiîoôöuûùy]+([^aàâeéèêiîoôöuûùy]*)?/g);
           taille += (a==null ? 0 : a.length)
           
