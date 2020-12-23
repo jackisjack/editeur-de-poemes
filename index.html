@@ -20,16 +20,49 @@
 
   <body>
 
-    <div id="editor">
-          <div id="textContent" contenteditable="true">
-		  <div>Ils s'aime‧nt curieuse‧ment en silence.</div>
-		  
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <a class="navbar-brand" href="#">{ ℙo‧èmes }</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		<div class="nav" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Rédiger</a>
+			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Apprendre</a>
+			<a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="true">Explorateur de mots</a>
+			<a class="nav-item nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options" role="tab" aria-controls="nav-options" aria-selected="false">Options</a>
+		</div>
+	  </div>
+	</nav>
+	<div class="tab-content" id="nav-tabContent">
+	  <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+			<div id="editor">
+				<div id="textContent" contenteditable="true"><div>Ils s'aime‧nt curieuse‧ment en silence.</div></div>
+			<div id="syllabCounter"></div>
+			</div>
+	  </div>
+	  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+		Apprendre
+	  </div>
+	  <div class="tab-pane fade  show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+	  
+			<div  id="explorateur-mots">
+				<div class="row">
+					<div class="col">
+					<input type="text" class="form-control" placeholder="Filtre regex sur graphie">
+					</div>
+					<div class="col">
+					<input type="text" class="form-control" placeholder="Filtre regex sur phonétique">
+					</div>
+				</div>
+			</div>
 
-
-          </div>
-          <div id="syllabCounter"></div>
-    </div>
-    
+	  </div>
+	  <div class="tab-pane fade" id="nav-options" role="tabpanel" aria-labelledby="nav-options-tab">
+		Options
+	  </div>
+	</div>
+	
     <script src="./script.js"></script>
   </body>
 </html>

@@ -119,7 +119,9 @@ class decomposeurSyllabe{
 		  
           // élision des 'e' (exception des e du futur/conditionel... en option paramétrable)  // longuement - zipperait
 		  if (!(/(era$|eras$|erais$|erai$|erait$|erions$|erons$|eriez$|erez$|eraient$|eront$)/.test(val) == true && option_e_fort_futur == true)) {
-          val = val.replace(/([aàâeéèêiîoôöuûùy][nm]?(ch|gn|ph|sc|([^aàâeéèêiîoôöuûùy])\3*))e([^aàâeéèêiîoôöuûùyx\u{2027}][aàâeéèêiîoôöuûùy])/gu,'$1$4') // attention gestion de 'e' derrière 'x' qui ne s'élide jamais (sexe!)
+			  if (/(^tunnelier)|(^tonnelier)/.test(val)==false) { // exceptions à l'élision du e
+				val = val.replace(/([aàâeéèêiîoôöuûùy][nm]?(ch|gn|ph|sc|([^aàâeéèêiîoôöuûùy])\3*))e((ch|gn|ph|sc|([^aàâeéèêiîoôöuûùy\u{2027}])\3*)[aàâeéèêiîoôöuûùy])/gu,'$1$4') // attention gestion de 'e' derrière 'x' qui ne s'élide jamais (sexe!)
+			  }
 		  }
      			// gestion des hiatus 
           // pas de gestion cas type 'sexuel' car demi-voyelle
